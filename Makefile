@@ -7,7 +7,8 @@ EE_BIN = BOOT-UNC.ELF
 EE_BIN_PKD = BOOT.ELF
 EE_OBJS = main.o pad.o config.o elf.o draw.o loader_elf.o filer.o \
 	poweroff_irx.o iomanx_irx.o filexio_irx.o ps2atad_irx.o ps2dev9_irx.o ps2ip_irx.o\
-	ps2smap_irx.o ps2hdd_irx.o ps2fs_irx.o ps2netfs_irx.o usbd_irx.o usbhdfsd_irx.o mcman_irx.o mcserv_irx.o\
+	ps2smap_irx.o ps2hdd_irx.o ps2fs_irx.o ps2netfs_irx.o usbd_irx.o usbhdfsd_irx.o\
+	sio2man_irx.o mcman_irx.o mcserv_irx.o padman_irx.o\
 	cdfs_irx.o ps2ftpd_irx.o ps2host_irx.o vmc_fs_irx.o ps2kbd_irx.o\
 	hdd.o hdl_rpc.o hdl_info_irx.o editor.o timer.o jpgviewer.o icon.o lang.o\
 	font_uLE.o makeicon.o chkesr.o sior_irx.o allowdvdv_irx.o
@@ -54,11 +55,17 @@ githash.h:
 	git rev-parse --short HEAD | tr -d "\n" >> $@ && \
 	printf '"\n#endif\n' >> $@
 
+sio2man_irx.s: $(PS2SDK)/iop/irx/sio2man.irx
+	$(BIN2S) $< $@ sio2man_irx
+
 mcman_irx.s: $(PS2SDK)/iop/irx/mcman.irx
 	$(BIN2S) $< $@ mcman_irx
 
 mcserv_irx.s: $(PS2SDK)/iop/irx/mcserv.irx
 	$(BIN2S) $< $@ mcserv_irx
+
+padman_irx.s: $(PS2SDK)/iop/irx/padman.irx
+	$(BIN2S) $< $@ padman_irx
 
 usbd_irx.s: $(PS2SDK)/iop/irx/usbd.irx
 	$(BIN2S) $< $@ usbd_irx
